@@ -377,30 +377,33 @@ chmod +x install.sh
                     </div>
                 </div>
                 
-                <div class="bg-white rounded-3xl p-8 shadow-lg">
+                <div class="bg白色 rounded-3xl p-8 shadow-lg">
                     <div class="flex items-center mb-6">
                         <span class="text-4xl mr-4">💾</span>
                         <h3 class="text-2xl font-semibold text-apple-gray">直接下载</h3>
                     </div>
-                    <p class="text-apple-gray-medium mb-6">下载并解压安装包：</p>
-                    <div class="relative">
-                        <pre class="bg-apple-gray text-green-400 p-6 rounded-xl overflow-x-auto text-sm font-mono"><code>tar -xzf battery-monitor.tar.gz
-cd battery
-chmod +x install.sh
-./install.sh</code></pre>
-                        <button onclick="copyCode('download-code')" class="absolute top-4 right-4 px-4 py-2 bg-apple-blue text-white text-sm rounded-lg hover:bg-apple-blue-dark transition">
-                            复制
-                        </button>
+                    <p class="text-apple-gray-medium mb-4">一行命令安装：</p>
+                    <div class="relative mb-6">
+                        <pre class="bg-apple-gray text-green-400 p-6 rounded-xl overflow-x-auto text-sm font-mono"><code>curl -fsSL https://ninadingAI.github.io/macbatterymonitor.com/battery-monitor-install.sh -o install.sh \\
+&& chmod +x install.sh \\
+&& ./install.sh</code></pre>
                     </div>
+                    <p class="text-apple-gray-medium mb-6">或直接下载安装脚本：</p>
+                    <a href="battery-monitor-install.sh" download class="inline-flex items-center px-6 py-3 bg-apple-blue text-white rounded-full hover:bg-apple-blue-dark transition">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        下载安装脚本（install.sh）
+                    </a>
                 </div>
             </div>
             
             <div class="text-center mt-12">
-                <a href="https://github.com/ninadingAI/battery-monitor/archive/refs/heads/main.zip" class="inline-flex items-center px-8 py-4 bg-apple-blue text-white text-lg font-semibold rounded-full hover:bg-apple-blue-dark transition shadow-lg" download>
+                <a href="battery-monitor-install.sh" class="inline-flex items-center px-8 py-4 bg-apple-blue text-white text-lg font-semibold rounded-full hover:bg-apple-blue-dark transition shadow-lg" download>
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
-                    下载最新版本
+                    下载安装脚本
                 </a>
             </div>
         </div>
