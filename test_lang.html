@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5NN8168X6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-F5NN8168X6');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Switcher Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-20">
+    <h1 class="text-3xl mb-8">Language Switcher Test</h1>
+    
+    <div class="relative inline-block">
+        <button id="langButton" class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg">
+            Click Me - English 🇺🇸
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border-2 border-gray-300 py-2 z-50">
+            <a href="index.html" class="block px-4 py-3 text-lg hover:bg-gray-100">🇺🇸 English</a>
+            <a href="index_zh.html" class="block px-4 py-3 text-lg hover:bg-gray-100">🇨🇳 中文</a>
+            <a href="index_fr.html" class="block px-4 py-3 text-lg hover:bg-gray-100">🇨🇦 Français</a>
+        </div>
+    </div>
+    
+    <div id="status" class="mt-8 text-lg"></div>
+    
+    <script>
+        console.log('Script loading...');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            
+            const langButton = document.getElementById('langButton');
+            const langMenu = document.getElementById('langMenu');
+            const status = document.getElementById('status');
+            
+            console.log('langButton:', langButton);
+            console.log('langMenu:', langMenu);
+            
+            status.textContent = 'Button found: ' + (langButton ? 'YES' : 'NO') + ', Menu found: ' + (langMenu ? 'YES' : 'NO');
+            
+            if (langButton && langMenu) {
+                langButton.addEventListener('click', function(e) {
+                    console.log('Button clicked!');
+                    e.stopPropagation();
+                    langMenu.classList.toggle('hidden');
+                    status.textContent = 'Menu is now: ' + (langMenu.classList.contains('hidden') ? 'HIDDEN' : 'VISIBLE');
+                });
+                
+                document.addEventListener('click', function(e) {
+                    if (!langButton.contains(e.target) && !langMenu.contains(e.target)) {
+                        langMenu.classList.add('hidden');
+                        console.log('Clicked outside, menu closed');
+                    }
+                });
+                
+                status.textContent += ' - Event listeners attached!';
+            } else {
+                status.textContent += ' - ERROR: Elements not found!';
+            }
+        });
+    </script>
+</body>
+</html>
+
+

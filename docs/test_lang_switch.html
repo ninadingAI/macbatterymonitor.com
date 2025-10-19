@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5NN8168X6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-F5NN8168X6');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Switch Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+        <h1 class="text-2xl font-bold mb-6">🌐 Language Switch Test</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- English -->
+            <div class="border rounded-lg p-4">
+                <h3 class="font-semibold mb-2">🇺🇸 English Version</h3>
+                <p class="text-sm text-gray-600 mb-3">Test switching to English</p>
+                <a href="index.html" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    Go to English
+                </a>
+            </div>
+            
+            <!-- Chinese -->
+            <div class="border rounded-lg p-4">
+                <h3 class="font-semibold mb-2">🇨🇳 中文版本</h3>
+                <p class="text-sm text-gray-600 mb-3">测试切换到中文</p>
+                <a href="index_zh.html" class="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                    切换到中文
+                </a>
+            </div>
+            
+            <!-- French -->
+            <div class="border rounded-lg p-4">
+                <h3 class="font-semibold mb-2">🇨🇦 Version Française</h3>
+                <p class="text-sm text-gray-600 mb-3">Tester le passage au français</p>
+                <a href="index_fr.html" class="inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                    Aller au Français
+                </a>
+            </div>
+        </div>
+        
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <h3 class="font-semibold text-yellow-800 mb-2">📋 Test Instructions</h3>
+            <ol class="text-sm text-yellow-700 space-y-1">
+                <li>1. Click any language button above</li>
+                <li>2. On the opened page, click the language switcher (top right)</li>
+                <li>3. Try switching between different languages</li>
+                <li>4. Report any issues in the log below</li>
+            </ol>
+        </div>
+        
+        <div class="mt-6 bg-gray-50 border rounded-lg p-4">
+            <h3 class="font-semibold mb-2">📝 Test Log</h3>
+            <div id="testLog" class="text-sm font-mono bg-white p-3 rounded border min-h-[100px]">
+                Ready for testing...<br>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const log = document.getElementById('testLog');
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            log.innerHTML += `[${timestamp}] ${message}<br>`;
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        // Log page load
+        addLog('Language switch test page loaded');
+        
+        // Test direct navigation
+        document.querySelectorAll('a[href]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                addLog(`Clicking link to: ${target}`);
+            });
+        });
+        
+        // Check if we came from another language page
+        if (document.referrer) {
+            addLog(`Came from: ${document.referrer}`);
+        }
+        
+        addLog('Test page ready - click any language button to start testing');
+    </script>
+</body>
+</html>
+

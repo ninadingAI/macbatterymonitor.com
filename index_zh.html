@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5NN8168X6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-F5NN8168X6');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Primary Meta Tags -->
+    <title>Mac 电池监控工具 - 智能电池健康管理 | 延长电池寿命</title>
+    <meta name="title" content="Mac 电池监控工具 - 智能电池健康管理 | 延长电池寿命">
+    <meta name="description" content="专业的 Mac 电池监控工具。智能管理 MacBook 电池健康，自动防止过度充电和深度放电。免费开源，一键安装。">
+    <meta name="keywords" content="Mac 电池监控, MacBook 电池管理, 电池健康, macOS 电池工具, 防止过度充电, 延长电池寿命, 开源工具">
+    <meta name="author" content="Battery Monitor">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ninadingAI.github.io/battery-monitor/index_zh.html">
+    <link rel="alternate" hreflang="en" href="https://ninadingAI.github.io/battery-monitor/">
+    <link rel="alternate" hreflang="zh-CN" href="https://ninadingAI.github.io/battery-monitor/index_zh.html">
+    <link rel="alternate" hreflang="fr-CA" href="https://ninadingAI.github.io/battery-monitor/index_fr.html">
+    <link rel="alternate" hreflang="fr" href="https://ninadingAI.github.io/battery-monitor/index_fr.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ninadingAI.github.io/battery-monitor/index_zh.html">
+    <meta property="og:title" content="Mac 电池监控工具 - 智能电池健康管理">
+    <meta property="og:description" content="专业的 Mac 电池监控工具。智能管理 MacBook 电池健康，自动防止过度充电和深度放电。">
+    <meta property="og:image" content="https://ninadingAI.github.io/battery-monitor/og-image.png">
+    <meta property="og:site_name" content="Mac 电池监控">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ninadingAI.github.io/battery-monitor/index_zh.html">
+    <meta property="twitter:title" content="Mac 电池监控工具 - 智能电池健康管理">
+    <meta property="twitter:description" content="专业的 Mac 电池监控工具。智能管理 MacBook 电池健康，自动防止过度充电和深度放电。">
+    <meta property="twitter:image" content="https://ninadingAI.github.io/battery-monitor/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔋</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Prevent caching issues -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'apple-gray': '#1d1d1f',
+                        'apple-gray-light': '#f5f5f7',
+                        'apple-gray-medium': '#6e6e73',
+                        'apple-blue': '#0071e3',
+                        'apple-blue-dark': '#0077ed',
+                    },
+                    fontFamily: {
+                        'apple': ['-apple-system', 'BlinkMacSystemFont', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Mac 电池监控工具",
+        "alternateName": ["MacBook 电池管理工具", "Mac 电池健康助手"],
+        "operatingSystem": "macOS",
+        "applicationCategory": "UtilitiesApplication",
+        "inLanguage": "zh-CN",
+        "description": "最佳的 Mac 电池监控工具。智能管理电池健康，防止过度充电和深度放电。免费开源。",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Battery Monitor"
+        },
+        "keywords": "Mac 电池监控, MacBook 电池管理, 电池健康, macOS 工具"
+    }
+    </script>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-apple text-apple-gray antialiased">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <span class="text-3xl">🔋</span>
+                    <span class="text-xl font-semibold text-apple-gray">电池监控</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-apple-gray-medium hover:text-apple-blue transition">功能特性</a>
+                    <a href="dashboard_zh.html" class="text-apple-blue font-semibold">仪表板</a>
+                    <a href="#install" class="text-apple-gray-medium hover:text-apple-blue transition">安装</a>
+                    <a href="#how-it-works" class="text-apple-gray-medium hover:text-apple-blue transition">工作原理</a>
+                    <a href="#faq" class="text-apple-gray-medium hover:text-apple-blue transition">常见问题</a>
+                    <!-- Language Switcher -->
+                    <div class="relative">
+                        <button id="langButton" class="inline-flex items-center px-3 py-1.5 bg-gray-100 text-apple-gray-medium rounded-full hover:bg-gray-200 transition text-sm">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                            </svg>
+                            中文 🇨🇳
+                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="langMenu" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-[60]">
+                            <a href="index.html" class="block px-4 py-2 text-sm text-apple-gray hover:bg-gray-50">🇺🇸 English</a>
+                            <a href="index_zh.html" class="block px-4 py-2 text-sm text-apple-blue font-medium hover:bg-gray-50">🇨🇳 中文</a>
+                            <a href="index_fr.html" class="block px-4 py-2 text-sm text-apple-gray hover:bg-gray-50">🇨🇦 Français</a>
+                        </div>
+                    </div>
+                    <a href="https://github.com/ninadingAI/battery-monitor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-apple-blue text-white rounded-full hover:bg-apple-blue-dark transition">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="切换菜单">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#features" class="block text-apple-gray-medium hover:text-apple-blue transition">功能特性</a>
+                <a href="dashboard_zh.html" class="block text-apple-blue font-semibold">📊 仪表板</a>
+                <a href="#install" class="block text-apple-gray-medium hover:text-apple-blue transition">安装</a>
+                <a href="#how-it-works" class="block text-apple-gray-medium hover:text-apple-blue transition">工作原理</a>
+                <a href="#faq" class="block text-apple-gray-medium hover:text-apple-blue transition">常见问题</a>
+                <div class="pt-2 border-t border-gray-200">
+                    <p class="text-xs text-apple-gray-medium mb-2">语言:</p>
+                    <a href="index.html" class="block text-apple-gray-medium hover:text-apple-blue transition py-1">🇺🇸 English</a>
+                    <a href="index_zh.html" class="block text-apple-blue font-medium py-1">🇨🇳 中文</a>
+                    <a href="index_fr.html" class="block text-apple-gray-medium hover:text-apple-blue transition py-1">🇨🇦 Français</a>
+                </div>
+                <a href="https://github.com/ninadingAI/battery-monitor" target="_blank" rel="noopener noreferrer" class="block text-apple-blue hover:text-apple-blue-dark transition">GitHub</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <header class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center animate-fade-in-up">
+                <div class="text-8xl md:text-9xl mb-8 animate-float" role="img" aria-label="电池图标">🔋</div>
+                
+                <!-- H1 - Main Heading -->
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-apple-gray mb-6 leading-tight">
+                    最好的 Mac<br class="hidden md:block">电池监控工具
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-apple-gray-medium mb-8 max-w-3xl mx-auto leading-relaxed">
+                    智能 Mac 电池监控工具，自动防止过度充电和深度放电，通过智能自动化保持 MacBook 电池健康。
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <a href="dashboard_zh.html" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-lg font-semibold rounded-full hover:from-purple-700 hover:to-blue-700 transition transform hover:scale-105 shadow-lg">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        体验仪表板
+                    </a>
+                    <a href="#install" class="inline-flex items-center justify-center px-8 py-4 bg-apple-blue text-white text-lg font-semibold rounded-full hover:bg-apple-blue-dark transition transform hover:scale-105 shadow-lg">
+                        下载工具
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/ninadingAI/battery-monitor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-apple-blue text-apple-blue text-lg font-semibold rounded-full hover:bg-apple-blue hover:text-white transition transform hover:scale-105 shadow-lg">
+                        查看源码
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-4 text-sm text-apple-gray-medium">
+                    <span class="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
+                        <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        免费开源
+                    </span>
+                    <span class="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
+                        <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
+                        </svg>
+                        macOS 10.13+
+                    </span>
+                    <span class="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
+                        <svg class="w-4 h-4 mr-2 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                        </svg>
+                        一键安装
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Rest of the Chinese content would continue here with all sections translated -->
+    <!-- For brevity, I'll include key sections and indicate where others would go -->
+    
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-apple-gray mb-4">Mac 电池监控功能</h2>
+                <p class="text-lg md:text-xl text-apple-gray-medium max-w-2xl mx-auto">
+                    高级 Mac 电池监控工具，提供自动保护和智能休眠计数
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <article class="p-8 bg-apple-gray-light rounded-3xl hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4">🔌</div>
+                    <h3 class="text-2xl font-semibold text-apple-gray mb-3">充电保护</h3>
+                    <p class="text-apple-gray-medium leading-relaxed">
+                        当电池充电至 75%（可自定义）时自动让 Mac 休眠，防止过度充电损伤，延长电池寿命。
+                    </p>
+                </article>
+                
+                <article class="p-8 bg-apple-gray-light rounded-3xl hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h3 class="text-2xl font-semibold text-apple-gray mb-3">深度放电保护</h3>
+                    <p class="text-apple-gray-medium leading-relaxed">
+                        当电量降至 25%（可自定义）以下时自动休眠，防止深度放电对电池造成损害。
+                    </p>
+                </article>
+                
+                <article class="p-8 bg-apple-gray-light rounded-3xl hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4">🔢</div>
+                    <h3 class="text-2xl font-semibold text-apple-gray mb-3">智能休眠计数</h3>
+                    <p class="text-apple-gray-medium leading-relaxed">
+                        前 3 次强制休眠，之后仅发送提醒。电量恢复正常范围后自动重置计数器。
+                    </p>
+                </article>
+                
+                <article class="p-8 bg-apple-gray-light rounded-3xl hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4">🔔</div>
+                    <h3 class="text-2xl font-semibold text-apple-gray mb-3">原生通知</h3>
+                    <p class="text-apple-gray-medium leading-relaxed">
+                        精美的 macOS 通知，带有声音提醒。唤醒对话框显示详细的休眠统计和电池信息。
+                    </p>
+                </article>
+                
+                <article class="p-8 bg-apple-gray-light rounded-3xl hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4">🚀</div>
+                    <h3 class="text-2xl font-semibold text-apple-gray mb-3">开机自启动</h3>
+                    <p class="text-apple-gray-medium leading-relaxed">
+                        配置为 launchd 服务，开机自动启动。在后台静默运行，资源占用极低。
+                    </p>
+                </article>
+                
+                <article class="p-8 bg-apple-gray-light rounded-3xl hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h3 class="text-2xl font-semibold text-apple-gray mb-3">详细日志</h3>
+                    <p class="text-apple-gray-medium leading-relaxed">
+                        完整记录所有电池事件、休眠时间和统计数据，方便长期跟踪电池健康状况。
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-gradient-to-br from-apple-blue to-blue-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold mb-2">3</div>
+                    <div class="text-lg opacity-90">最大休眠次数</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">30秒</div>
+                    <div class="text-lg opacity-90">检查间隔</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">75%</div>
+                    <div class="text-lg opacity-90">默认高电量</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">25%</div>
+                    <div class="text-lg opacity-90">默认低电量</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="install" class="py-20 bg-apple-gray-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-apple-gray mb-4">快速安装</h2>
+                <p class="text-lg md:text-xl text-apple-gray-medium max-w-2xl mx-auto">
+                    使用自动安装脚本，不到一分钟即可完成安装
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white rounded-3xl p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl mr-4">📦</span>
+                        <h3 class="text-2xl font-semibold text-apple-gray">从 GitHub 安装</h3>
+                    </div>
+                    <p class="text-apple-gray-medium mb-6">克隆仓库并运行安装脚本：</p>
+                    <div class="relative">
+                        <pre class="bg-apple-gray text-green-400 p-6 rounded-xl overflow-x-auto text-sm font-mono"><code>git clone https://github.com/ninadingAI/battery-monitor.git
+cd battery-monitor
+chmod +x install.sh
+./install.sh</code></pre>
+                        <button onclick="copyCode('github-code')" class="absolute top-4 right-4 px-4 py-2 bg-apple-blue text-white text-sm rounded-lg hover:bg-apple-blue-dark transition">
+                            复制
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl mr-4">💾</span>
+                        <h3 class="text-2xl font-semibold text-apple-gray">直接下载</h3>
+                    </div>
+                    <p class="text-apple-gray-medium mb-6">下载并解压安装包：</p>
+                    <div class="relative">
+                        <pre class="bg-apple-gray text-green-400 p-6 rounded-xl overflow-x-auto text-sm font-mono"><code>tar -xzf battery-monitor.tar.gz
+cd battery
+chmod +x install.sh
+./install.sh</code></pre>
+                        <button onclick="copyCode('download-code')" class="absolute top-4 right-4 px-4 py-2 bg-apple-blue text-white text-sm rounded-lg hover:bg-apple-blue-dark transition">
+                            复制
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://github.com/ninadingAI/battery-monitor/archive/refs/heads/main.zip" class="inline-flex items-center px-8 py-4 bg-apple-blue text-white text-lg font-semibold rounded-full hover:bg-apple-blue-dark transition shadow-lg" download>
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    下载最新版本
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Configuration Generator -->
+    <section class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold text-apple-gray mb-4">自定义配置</h2>
+                <p class="text-lg md:text-xl text-apple-gray-medium">
+                    调整电池阈值以匹配您的使用习惯
+                </p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-3xl p-8 md:p-12 shadow-lg">
+                <div class="space-y-8">
+                    <!-- High Threshold -->
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <label for="highThreshold" class="text-lg font-semibold text-apple-gray">高电量阈值</label>
+                            <span id="highValue" class="text-2xl font-bold text-apple-blue">75%</span>
+                        </div>
+                        <input type="range" id="highThreshold" min="60" max="95" value="75" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-apple-blue" oninput="updateConfig()">
+                        <p class="text-sm text-apple-gray-medium mt-2">充电时达到此电量时休眠</p>
+                    </div>
+                    
+                    <!-- Low Threshold -->
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <label for="lowThreshold" class="text-lg font-semibold text-apple-gray">低电量阈值</label>
+                            <span id="lowValue" class="text-2xl font-bold text-apple-blue">25%</span>
+                        </div>
+                        <input type="range" id="lowThreshold" min="10" max="40" value="25" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-apple-blue" oninput="updateConfig()">
+                        <p class="text-sm text-apple-gray-medium mt-2">电量低于此值时休眠</p>
+                    </div>
+                    
+                    <!-- Max Sleep Times -->
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <label for="maxSleep" class="text-lg font-semibold text-apple-gray">最大休眠次数</label>
+                            <span id="maxValue" class="text-2xl font-bold text-apple-blue">3</span>
+                        </div>
+                        <input type="range" id="maxSleep" min="1" max="10" value="3" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-apple-blue" oninput="updateConfig()">
+                        <p class="text-sm text-apple-gray-medium mt-2">达到此次数后仅发送提醒</p>
+                    </div>
+                    
+                    <!-- Generated Command -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <h3 class="text-xl font-semibold text-apple-gray mb-4">您的自定义设置</h3>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-4 bg-white rounded-xl border-2 border-apple-blue">
+                                <div class="text-sm text-apple-gray-medium mb-1">高电量阈值</div>
+                                <div class="text-3xl font-bold text-apple-blue" id="displayHigh">75%</div>
+                            </div>
+                            <div class="text-center p-4 bg-white rounded-xl border-2 border-apple-blue">
+                                <div class="text-sm text-apple-gray-medium mb-1">低电量阈值</div>
+                                <div class="text-3xl font-bold text-apple-blue" id="displayLow">25%</div>
+                            </div>
+                            <div class="text-center p-4 bg-white rounded-xl border-2 border-apple-blue">
+                                <div class="text-sm text-apple-gray-medium mb-1">最大休眠次数</div>
+                                <div class="text-3xl font-bold text-apple-blue" id="displayMax">3</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="downloadCustomScript()" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white text-lg font-semibold rounded-full hover:from-green-700 hover:to-blue-700 transition shadow-lg">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                                下载自定义脚本
+                            </button>
+                            <button onclick="copyInstallCommand()" class="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-apple-blue text-apple-blue text-lg font-semibold rounded-full hover:bg-apple-blue hover:text-white transition shadow-lg">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                复制安装命令
+                            </button>
+                        </div>
+                        
+                        <div id="downloadSuccess" class="hidden mt-4 p-4 bg-green-50 text-green-800 rounded-xl text-center">
+                            ✅ 自定义脚本已下载！运行：<code class="bg-green-100 px-2 py-1 rounded">chmod +x battery_monitor_custom.sh && ./battery_monitor_custom.sh</code>
+                        </div>
+                        
+                        <p class="text-sm text-apple-gray-medium mt-6 text-center">
+                            💡 <strong>提示：</strong>下载的脚本已预配置您的设置，只需设置为可执行并运行即可！
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-apple-gray-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-apple-gray mb-4">工作原理</h2>
+                <p class="text-lg md:text-xl text-apple-gray-medium max-w-2xl mx-auto">
+                    了解智能休眠计数机制
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Charging Scenario -->
+                <div class="bg-white rounded-3xl p-8 md:p-10 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <span class="text-5xl mr-4">🔋</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-green-600">充电模式</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold mr-4">1</span>
+                            <div>
+                                <p class="font-semibold text-apple-gray mb-1">当电量 ≥ 75%</p>
+                                <p class="text-apple-gray-medium">前3次：强制休眠并通知"休眠（第X/3次）"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold mr-4">2</span>
+                            <div>
+                                <p class="font-semibold text-apple-gray mb-1">3次后</p>
+                                <p class="text-apple-gray-medium">仅显示提醒："建议拔掉充电器"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold mr-4">3</span>
+                            <div>
+                                <p class="font-semibold text-apple-gray mb-1">自动重置</p>
+                                <p class="text-apple-gray-medium">电量降至75%以下时计数器重置</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Discharging Scenario -->
+                <div class="bg-white rounded-3xl p-8 md:p-10 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <span class="text-5xl mr-4">⚡</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-red-600">低电量模式</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold mr-4">1</span>
+                            <div>
+                                <p class="font-semibold text-apple-gray mb-1">当电量 ≤ 25%</p>
+                                <p class="text-apple-gray-medium">前3次：强制休眠保护电池</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold mr-4">2</span>
+                            <div>
+                                <p class="font-semibold text-apple-gray mb-1">3次后</p>
+                                <p class="text-apple-gray-medium">仅显示提醒："建议连接充电器"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold mr-4">3</span>
+                            <div>
+                                <p class="font-semibold text-apple-gray mb-1">自动重置</p>
+                                <p class="text-apple-gray-medium">电量充至25%以上时计数器重置</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Service Management -->
+    <section class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold text-apple-gray mb-4">服务管理</h2>
+                <p class="text-lg md:text-xl text-apple-gray-medium">
+                    常用的电池监控服务管理命令
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <details class="bg-apple-gray-light rounded-2xl p-6 cursor-pointer hover:shadow-md transition" open>
+                    <summary class="text-lg font-semibold text-apple-gray flex items-center">
+                        <svg class="w-5 h-5 mr-3 text-apple-blue" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        查看服务状态
+                    </summary>
+                    <div class="mt-4 pl-8">
+                        <pre class="bg-apple-gray text-green-400 p-4 rounded-xl text-sm font-mono overflow-x-auto">launchctl list | grep battery</pre>
+                    </div>
+                </details>
+                
+                <details class="bg-apple-gray-light rounded-2xl p-6 cursor-pointer hover:shadow-md transition">
+                    <summary class="text-lg font-semibold text-apple-gray flex items-center">
+                        <svg class="w-5 h-5 mr-3 text-apple-blue" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd"></path>
+                        </svg>
+                        停止服务
+                    </summary>
+                    <div class="mt-4 pl-8">
+                        <pre class="bg-apple-gray text-green-400 p-4 rounded-xl text-sm font-mono overflow-x-auto">launchctl unload ~/Library/LaunchAgents/com.user.battery.monitor.plist</pre>
+                    </div>
+                </details>
+                
+                <details class="bg-apple-gray-light rounded-2xl p-6 cursor-pointer hover:shadow-md transition">
+                    <summary class="text-lg font-semibold text-apple-gray flex items-center">
+                        <svg class="w-5 h-5 mr-3 text-apple-blue" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                        </svg>
+                        启动服务
+                    </summary>
+                    <div class="mt-4 pl-8">
+                        <pre class="bg-apple-gray text-green-400 p-4 rounded-xl text-sm font-mono overflow-x-auto">launchctl load ~/Library/LaunchAgents/com.user.battery.monitor.plist</pre>
+                    </div>
+                </details>
+                
+                <details class="bg-apple-gray-light rounded-2xl p-6 cursor-pointer hover:shadow-md transition">
+                    <summary class="text-lg font-semibold text-apple-gray flex items-center">
+                        <svg class="w-5 h-5 mr-3 text-apple-blue" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                        </svg>
+                        查看日志
+                    </summary>
+                    <div class="mt-4 pl-8">
+                        <pre class="bg-apple-gray text-green-400 p-4 rounded-xl text-sm font-mono overflow-x-auto">tail -f ~/battery_monitor/battery_monitor.log</pre>
+                    </div>
+                </details>
+                
+                <details class="bg-apple-gray-light rounded-2xl p-6 cursor-pointer hover:shadow-md transition">
+                    <summary class="text-lg font-semibold text-apple-gray flex items-center text-red-600">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        卸载
+                    </summary>
+                    <div class="mt-4 pl-8">
+                        <pre class="bg-apple-gray text-red-400 p-4 rounded-xl text-sm font-mono overflow-x-auto">./uninstall.sh</pre>
+                        <p class="text-sm text-apple-gray-medium mt-2">完全移除服务和所有相关文件</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-apple-gray-light">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-apple-gray mb-4">常见问题</h2>
+                <p class="text-lg md:text-xl text-apple-gray-medium">
+                    关于电池监控工具您需要了解的一切
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <details class="bg-white rounded-2xl p-6 shadow-md cursor-pointer hover:shadow-lg transition">
+                    <summary class="text-lg md:text-xl font-semibold text-apple-gray">
+                        为什么会反复强制我的 Mac 休眠？
+                    </summary>
+                    <p class="mt-4 text-apple-gray-medium leading-relaxed">
+                        新版本（v2.0）实现了智能计数机制。每个场景（高电量或低电量）只会强制休眠3次。之后将仅发送通知提醒而不强制休眠。这样可以避免无限次打断您的工作。
+                    </p>
+                </details>
+                
+                <details class="bg-white rounded-2xl p-6 shadow-md cursor-pointer hover:shadow-lg transition">
+                    <summary class="text-lg md:text-xl font-semibold text-apple-gray">
+                        如何修改最大休眠次数？
+                    </summary>
+                    <p class="mt-4 text-apple-gray-medium leading-relaxed">
+                        编辑 <code class="bg-gray-100 px-2 py-1 rounded">~/battery_monitor/battery_monitor.sh</code> 文件中的 <code class="bg-gray-100 px-2 py-1 rounded">MAX_SLEEP_TIMES</code> 变量。您可以将其设置为 1 到 10 之间的任何值。修改后使用 <code class="bg-gray-100 px-2 py-1 rounded">launchctl unload</code> 和 <code class="bg-gray-100 px-2 py-1 rounded">launchctl load</code> 重启服务。
+                    </p>
+                </details>
+                
+                <details class="bg-white rounded-2xl p-6 shadow-md cursor-pointer hover:shadow-lg transition">
+                    <summary class="text-lg md:text-xl font-semibold text-apple-gray">
+                        服务没有在开机时自动启动
+                    </summary>
+                    <p class="mt-4 text-apple-gray-medium leading-relaxed">
+                        检查 plist 文件是否正确放置在 <code class="bg-gray-100 px-2 py-1 rounded">~/Library/LaunchAgents/</code> 目录，并且文件路径中的用户名已正确替换。您可以使用 <code class="bg-gray-100 px-2 py-1 rounded">launchctl list | grep battery</code> 验证服务状态。如需要，重新运行安装程序。
+                    </p>
+                </details>
+                
+                <details class="bg-white rounded-2xl p-6 shadow-md cursor-pointer hover:shadow-lg transition">
+                    <summary class="text-lg md:text-xl font-semibold text-apple-gray">
+                        如何重置休眠计数器？
+                    </summary>
+                    <p class="mt-4 text-apple-gray-medium leading-relaxed">
+                        当电池恢复到正常范围时，计数器会自动重置（高电量场景低于75%，或低电量场景高于25%）。如果想手动重置，删除计数器文件：<code class="bg-gray-100 px-2 py-1 rounded">rm ~/.battery_sleep_counter</code>
+                    </p>
+                </details>
+                
+                <details class="bg-white rounded-2xl p-6 shadow-md cursor-pointer hover:shadow-lg transition">
+                    <summary class="text-lg md:text-xl font-semibold text-apple-gray">
+                        这个工具对我的 Mac 和电池安全吗？
+                    </summary>
+                    <p class="mt-4 text-apple-gray-medium leading-relaxed">
+                        是的，完全安全。该工具使用 macOS 原生命令（<code class="bg-gray-100 px-2 py-1 rounded">pmset</code>）和系统通知。它不会修改任何系统文件，除了正常的休眠命令外不需要管理员权限。其目的是保护您的电池免受长期过度充电或深度放电造成的损害。
+                    </p>
+                </details>
+                
+                <details class="bg-white rounded-2xl p-6 shadow-md cursor-pointer hover:shadow-lg transition">
+                    <summary class="text-lg md:text-xl font-semibold text-apple-gray">
+                        我可以临时禁用监控吗？
+                    </summary>
+                    <p class="mt-4 text-apple-gray-medium leading-relaxed">
+                        可以，运行 <code class="bg-gray-100 px-2 py-1 rounded">launchctl unload ~/Library/LaunchAgents/com.user.battery.monitor.plist</code> 停止服务。要重新启用，运行 <code class="bg-gray-100 px-2 py-1 rounded">launchctl load ~/Library/LaunchAgents/com.user.battery.monitor.plist</code>
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-apple-blue to-blue-600 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">获取最佳 Mac 电池监控工具</h2>
+            <p class="text-xl md:text-2xl mb-10 opacity-95">
+                加入数百位通过智能自动化管理 Mac 电池健康的用户
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#install" class="inline-flex items-center justify-center px-8 py-4 bg-white text-apple-blue text-lg font-semibold rounded-full hover:bg-gray-100 transition transform hover:scale-105 shadow-lg">
+                    立即开始
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </a>
+                <a href="https://github.com/ninadingAI/battery-monitor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white text-lg font-semibold rounded-full hover:bg-white hover:text-apple-blue transition transform hover:scale-105">
+                    查看源代码
+                    <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-apple-gray text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="text-3xl">🔋</span>
+                        <span class="text-xl font-semibold">电池监控</span>
+                    </div>
+                    <p class="text-gray-400">
+                        macOS 智能电池健康管理工具
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#features" class="hover:text-white transition">功能特性</a></li>
+                        <li><a href="#install" class="hover:text-white transition">安装</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white transition">工作原理</a></li>
+                        <li><a href="#faq" class="hover:text-white transition">常见问题</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">资源</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="https://github.com/ninadingAI/battery-monitor" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">GitHub 仓库</a></li>
+                        <li><a href="https://github.com/ninadingAI/battery-monitor/issues" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">报告问题</a></li>
+                        <li><a href="index.html" class="hover:text-white transition">🇺🇸 English</a></li>
+                        <li><a href="index_fr.html" class="hover:text-white transition">🇨🇦 Français</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Battery Monitor. 采用 MIT 许可证开源</p>
+                <p class="mt-2">用 ❤️ 为 MacBook 用户打造</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        // Auto-refresh once if coming from another language (cache fix)
+        if (performance.navigation.type === 1) {
+            // Page was refreshed, clear the flag
+            sessionStorage.removeItem('needsRefresh');
+        } else if (sessionStorage.getItem('needsRefresh') === 'true') {
+            // Coming from another page and needs refresh
+            sessionStorage.removeItem('needsRefresh');
+            location.reload(true);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            var mobileMenuButton = document.getElementById('mobile-menu-button');
+            var mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    if (mobileMenu) {
+                        mobileMenu.classList.toggle('hidden');
+                    }
+                });
+            }
+            
+            var mobileLinks = document.querySelectorAll('#mobile-menu a');
+            for (var i = 0; i < mobileLinks.length; i++) {
+                mobileLinks[i].addEventListener('click', function() {
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Language switcher toggle
+            var langButton = document.getElementById('langButton');
+            var langMenu = document.getElementById('langMenu');
+            
+            if (langButton && langMenu) {
+                langButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    langMenu.classList.toggle('hidden');
+                });
+                
+                // Close language menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!langButton.contains(e.target) && !langMenu.contains(e.target)) {
+                        langMenu.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Initialize configuration
+            if (typeof updateConfig === 'function') {
+                updateConfig();
+            }
+        });
+        
+        // Configuration update
+        function updateConfig() {
+            const high = document.getElementById('highThreshold').value;
+            const low = document.getElementById('lowThreshold').value;
+            const max = document.getElementById('maxSleep').value;
+            
+            document.getElementById('highValue').textContent = high + '%';
+            document.getElementById('lowValue').textContent = low + '%';
+            document.getElementById('maxValue').textContent = max;
+            
+            // Update display cards
+            if (document.getElementById('displayHigh')) {
+                document.getElementById('displayHigh').textContent = high + '%';
+                document.getElementById('displayLow').textContent = low + '%';
+                document.getElementById('displayMax').textContent = max;
+            }
+        }
+        
+        // Download custom configured script
+        function downloadCustomScript() {
+            const high = document.getElementById('highThreshold').value;
+            const low = document.getElementById('lowThreshold').value;
+            const max = document.getElementById('maxSleep').value;
+            
+            // Read the actual battery_monitor.sh and customize it
+            fetch('https://raw.githubusercontent.com/ninadingAI/battery-monitor/main/battery_monitor.sh')
+                .then(response => response.text())
+                .then(scriptContent => {
+                    // Replace default values with custom ones
+                    scriptContent = scriptContent.replace(/HIGH_PERCENTAGE=\$\{1:-\d+\}/, `HIGH_PERCENTAGE=\${1:-${high}}`);
+                    scriptContent = scriptContent.replace(/LOW_PERCENTAGE=\$\{2:-\d+\}/, `LOW_PERCENTAGE=\${2:-${low}}`);
+                    scriptContent = scriptContent.replace(/MAX_SLEEP_TIMES=\d+/, `MAX_SLEEP_TIMES=${max}`);
+                    
+                    // Create download
+                    const blob = new Blob([scriptContent], { type: 'text/plain' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `battery_monitor_custom_${high}_${low}_${max}.sh`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    // Show success message
+                    document.getElementById('downloadSuccess').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById('downloadSuccess').classList.add('hidden');
+                    }, 5000);
+                })
+                .catch(err => {
+                    alert('下载失败。请直接从 GitHub 下载后手动修改配置。');
+                });
+        }
+        
+        // Copy install command with custom parameters
+        function copyInstallCommand() {
+            const high = document.getElementById('highThreshold').value;
+            const low = document.getElementById('lowThreshold').value;
+            const max = document.getElementById('maxSleep').value;
+            
+            const command = `git clone https://github.com/ninadingAI/battery-monitor.git
+cd battery-monitor
+chmod +x install.sh
+./install.sh
+# 然后设置自定义值:
+sed -i '' 's/HIGH_PERCENTAGE=\${1:-75}/HIGH_PERCENTAGE=\${1:-${high}}/g' ~/battery_monitor/battery_monitor.sh
+sed -i '' 's/LOW_PERCENTAGE=\${2:-25}/LOW_PERCENTAGE=\${2:-${low}}/g' ~/battery_monitor/battery_monitor.sh
+sed -i '' 's/MAX_SLEEP_TIMES=3/MAX_SLEEP_TIMES=${max}/g' ~/battery_monitor/battery_monitor.sh`;
+            
+            navigator.clipboard.writeText(command).then(() => {
+                const button = event.target.closest('button');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<svg class="w-5 h-5 mr-2 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>已复制！';
+                button.classList.add('bg-green-600', 'text-white', 'border-green-600');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('bg-green-600', 'text-white', 'border-green-600');
+                }, 2000);
+            });
+        }
+        
+        // Copy code
+        function copyCode(elementId) {
+            let text;
+            if (elementId === 'github-code') {
+                text = `git clone https://github.com/ninadingAI/battery-monitor.git
+cd battery-monitor
+chmod +x install.sh
+./install.sh`;
+            } else if (elementId === 'download-code') {
+                text = `tar -xzf battery-monitor.tar.gz
+cd battery
+chmod +x install.sh
+./install.sh`;
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '已复制！';
+                button.classList.add('bg-green-500');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('bg-green-500');
+                }, 2000);
+            }).catch(err => {
+                console.error('复制失败:', err);
+            });
+        }
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

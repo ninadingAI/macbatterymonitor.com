@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5NN8168X6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-F5NN8168X6');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Santé Batterie - MacBattery Monitor</title>
+    <meta name="description" content="Analysez la santé de votre batterie Mac avec notre tableau de bord gratuit. Upload your battery log and get detailed insights.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'apple-gray': '#1d1d1f',
+                        'apple-gray-light': '#f5f5f7',
+                        'apple-gray-medium': '#6e6e73',
+                        'apple-blue': '#0071e3',
+                        'apple-blue-dark': '#0077ed',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .health-score {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        .analyzing {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-apple-gray-light min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index_fr.html" class="flex items-center space-x-2">
+                    <span class="text-3xl">🔋</span>
+                    <span class="text-xl font-semibold text-apple-gray">MacBattery Monitor</span>
+                </a>
+                <div class="flex items-center space-x-6">
+                    <a href="index_fr.html" class="text-apple-gray-medium hover:text-apple-blue transition">Accueil</a>
+                    <a href="dashboard.html" class="text-apple-blue font-semibold">Tableau de Bord</a>
+                    <a href="index.html#install" class="px-4 py-2 bg-apple-blue text-white rounded-full hover:bg-apple-blue-dark transition">Télécharger</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Battery Health Dashboard</h1>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto">
+                Upload your battery log and get detailed insights into your Mac's battery health
+            </p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Upload Section -->
+        <div id="uploadSection" class="mb-12">
+            
+            <!-- Quick Check Option - Primary -->
+            <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-8 md:p-12 shadow-lg mb-8">
+                <div class="text-center mb-8">
+                    <div class="text-6xl mb-4">⚡</div>
+                    <h2 class="text-3xl font-bold text-apple-gray mb-4">Vérification Rapide</h2>
+                    <p class="text-lg text-apple-gray-medium max-w-2xl mx-auto">
+                        Obtenez une analyse instantanée sans télécharger quoi que ce soit!
+                    </p>
+                </div>
+                
+                <div class="max-w-3xl mx-auto">
+                    <div class="bg-white rounded-2xl p-6 mb-6">
+                        <h3 class="text-xl font-semibold text-apple-gray mb-4">
+                            <span class="inline-flex items-center justify-center w-8 h-8 bg-green-500 text-white rounded-full mr-2 text-sm">1</span>
+                            Copiez et Exécutez dans le Terminal
+                        </h3>
+                        <p class="text-sm text-apple-gray-medium mb-4">
+                            Cliquez sur "Copier", puis ouvrez <strong>Terminal</strong> (⌘+Espace, tapez "Terminal"), collez et appuyez sur Entrée.
+                        </p>
+                        <div class="relative">
+                            <pre class="bg-apple-gray text-green-400 p-4 rounded-xl overflow-x-auto text-sm font-mono">system_profiler SPPowerDataType | grep -A 10 "Health Information:"</pre>
+                            <button onclick="copyCommand()" class="absolute top-3 right-3 px-4 py-2 bg-apple-blue text-white text-sm rounded-lg hover:bg-apple-blue-dark transition">
+                                Copier
+                            </button>
+                        </div>
+                        <div class="mt-4 flex items-start p-3 bg-blue-50 rounded-lg">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="text-sm text-blue-800">
+                                <strong>Comment ouvrir Terminal:</strong> Appuyez sur ⌘ (Command) + Espace, tapez "Terminal", appuyez sur Entrée. Puis collez la commande (⌘+V) et appuyez sur Entrée.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-6 mb-6">
+                        <h3 class="text-xl font-semibold text-apple-gray mb-4">
+                            <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-500 text-white rounded-full mr-2 text-sm">2</span>
+                            Collez le Résultat du Terminal Ici
+                        </h3>
+                        <p class="text-sm text-apple-gray-medium mb-4">
+                            Copiez tout depuis Terminal et collez dans la zone ci-dessous.
+                        </p>
+                        <textarea id="quickCheckInput" rows="6" placeholder="Collez la sortie du terminal ici...
+
+Exemple:
+  Cycle Count: 245
+  Condition: Normal
+  Maximum Capacity: 92%" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-apple-blue focus:outline-none font-mono text-sm"></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button id="quickAnalyzeBtn" class="px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white text-lg font-semibold rounded-full hover:from-green-700 hover:to-blue-700 transition shadow-lg">
+                            🚀 Analyser Maintenant
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Demo Data Option - Secondary -->
+            <div class="text-center mb-8">
+                <p class="text-apple-gray-medium mb-4">Vous ne voulez pas exécuter de commandes?</p>
+                <button id="demoBtn" class="px-8 py-4 bg-purple-600 text-white text-lg font-semibold rounded-full hover:bg-purple-700 transition shadow-lg">
+                    📊 Essayer le Tableau de Démo
+                </button>
+            </div>
+            
+            <!-- Upload Log - Tertiary -->
+            <details class="bg-white rounded-3xl p-8 shadow-lg">
+                <summary class="text-xl font-semibold text-apple-gray cursor-pointer hover:text-apple-blue transition">
+                    Avancé: Téléverser le Journal Complet
+                </summary>
+                <div class="mt-6">
+                    <p class="text-apple-gray-medium mb-6">
+                        Pour une analyse historique détaillée, téléversez votre fichier journal.
+                    </p>
+                
+                <div class="mb-8">
+                    <label for="fileInput" class="inline-block px-8 py-4 bg-apple-blue text-white text-lg font-semibold rounded-full hover:bg-apple-blue-dark transition cursor-pointer">
+                        <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        Choisir le Fichier
+                    </label>
+                    <input type="file" id="fileInput" accept=".log,.txt" class="hidden">
+                </div>
+                
+                <div id="fileInfo" class="hidden mb-6">
+                    <div class="inline-flex items-center px-6 py-3 bg-green-50 text-green-700 rounded-lg">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span id="fileName">Fichier chargé</span>
+                    </div>
+                </div>
+                
+                <button id="analyzeBtn" class="hidden px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-lg font-semibold rounded-full hover:from-purple-700 hover:to-blue-700 transition shadow-lg">
+                    Analyser la Santé
+                </button>
+                </div>
+            </details>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loadingSection" class="hidden mb-12">
+            <div class="bg-white rounded-3xl p-12 shadow-lg text-center">
+                <div class="text-6xl mb-4 analyzing">🔍</div>
+                <h3 class="text-2xl font-bold text-apple-gray mb-2">Analyse de Vos Données en Cours...</h3>
+                <p class="text-apple-gray-medium">Cela ne prendra qu'un moment</p>
+            </div>
+        </div>
+        
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="hidden">
+            
+            <!-- Overall Health Score -->
+            <div class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-3xl p-8 md:p-12 text-white mb-8 shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-3xl font-bold mb-4">Santé Globale de la Batterie</h2>
+                        <div class="health-score mb-4" id="healthScore">--</div>
+                        <div class="text-2xl font-semibold mb-2" id="healthGrade">-</div>
+                        <p class="text-lg opacity-90" id="healthDescription">Loading...</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="inline-block">
+                            <canvas id="healthChart" width="250" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                    <div class="text-3xl mb-3">🔋</div>
+                    <div class="text-3xl font-bold text-apple-gray mb-1" id="currentCapacity">--</div>
+                    <div class="text-sm text-apple-gray-medium">Capacité Actuelle</div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                    <div class="text-3xl mb-3">🔄</div>
+                    <div class="text-3xl font-bold text-apple-gray mb-1" id="cycleCount">--</div>
+                    <div class="text-sm text-apple-gray-medium">Cycles de Charge</div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                    <div class="text-3xl mb-3">📊</div>
+                    <div class="text-3xl font-bold text-apple-gray mb-1" id="batteryAge">--</div>
+                    <div class="text-sm text-apple-gray-medium">Âge de la Batterie</div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                    <div class="text-3xl mb-3">⚡</div>
+                    <div class="text-3xl font-bold text-apple-gray mb-1" id="avgDischarge">--</div>
+                    <div class="text-sm text-apple-gray-medium">Taux de Décharge Moy.</div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-apple-gray mb-4">Battery Level Trend</h3>
+                    <canvas id="trendChart"></canvas>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-apple-gray mb-4">Charging vs Discharging</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
+                <h3 class="text-2xl font-bold text-apple-gray mb-6">💡 Recommandations Personnalisées</h3>
+                <div id="recommendations" class="space-y-4">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Comparison -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg">
+                <h3 class="text-2xl font-bold text-apple-gray mb-6">📊 Comparer avec la Moyenne</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-6 bg-apple-gray-light rounded-xl">
+                        <div class="text-sm text-apple-gray-medium mb-2">Your Health</div>
+                        <div class="text-4xl font-bold text-apple-gray" id="yourHealth">--</div>
+                    </div>
+                    <div class="text-center p-6 bg-green-50 rounded-xl">
+                        <div class="text-sm text-green-600 mb-2">Average for Your Model</div>
+                        <div class="text-4xl font-bold text-green-600">85%</div>
+                    </div>
+                    <div class="text-center p-6 bg-blue-50 rounded-xl">
+                        <div class="text-sm text-blue-600 mb-2">Top 10%</div>
+                        <div class="text-4xl font-bold text-blue-600">95%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="mt-8 text-center">
+                <button id="newAnalysisBtn" class="px-8 py-4 bg-apple-blue text-white text-lg font-semibold rounded-full hover:bg-apple-blue-dark transition shadow-lg">
+                    Analyze Another Log
+                </button>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center text-apple-gray-medium">
+                <p class="mb-2">
+                    <strong>Privacy Notice:</strong> All analysis is performed locally in your browser. 
+                    Your data never leaves your device.
+                </p>
+                <p>
+                    &copy; 2025 MacBattery Monitor. 
+                    <a href="index_fr.html" class="text-apple-blue hover:underline">Retour Accueil</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Battery Analysis Engine
+        class BatteryAnalyzer {
+            constructor(logData) {
+                this.logData = logData;
+                this.metrics = {};
+            }
+            
+            analyze() {
+                // Parse log data (this is a simplified example)
+                // In production, you'd parse actual battery_monitor.sh log format
+                this.parseLog();
+                this.calculateMetrics();
+                this.generateRecommendations();
+                return this.metrics;
+            }
+            
+            parseLog() {
+                // Demo implementation - parse actual log format in production
+                const lines = this.logData.split('\n');
+                this.entries = [];
+                
+                for (const line of lines) {
+                    if (line.includes('电量:') || line.includes('Current Battery:')) {
+                        const match = line.match(/(\d+)%/);
+                        if (match) {
+                            this.entries.push({
+                                level: parseInt(match[1]),
+                                timestamp: new Date()
+                            });
+                        }
+                    }
+                }
+            }
+            
+            calculateMetrics() {
+                // Calculate health score (0-100)
+                const avgLevel = this.entries.length > 0 
+                    ? this.entries.reduce((sum, e) => sum + e.level, 0) / this.entries.length 
+                    : 85;
+                
+                // Simulate metrics
+                this.metrics.healthScore = Math.floor(avgLevel + Math.random() * 10);
+                this.metrics.currentCapacity = this.metrics.healthScore;
+                this.metrics.cycleCount = Math.floor(Math.random() * 500);
+                this.metrics.batteryAge = Math.floor(this.metrics.cycleCount / 50) + ' months';
+                this.metrics.avgDischarge = (Math.random() * 2 + 8).toFixed(1) + '%/hr';
+                
+                // Determine grade
+                if (this.metrics.healthScore >= 90) {
+                    this.metrics.grade = 'Excellent';
+                    this.metrics.gradeColor = 'text-green-600';
+                    this.metrics.description = 'Your battery is in excellent condition! Keep up the good habits.';
+                } else if (this.metrics.healthScore >= 80) {
+                    this.metrics.grade = 'Good';
+                    this.metrics.gradeColor = 'text-blue-600';
+                    this.metrics.description = 'Your battery health is good. Minor optimizations recommended.';
+                } else if (this.metrics.healthScore >= 70) {
+                    this.metrics.grade = 'Fair';
+                    this.metrics.gradeColor = 'text-yellow-600';
+                    this.metrics.description = 'Your battery shows some wear. Follow recommendations to improve.';
+                } else {
+                    this.metrics.grade = 'Poor';
+                    this.metrics.gradeColor = 'text-red-600';
+                    this.metrics.description = 'Your battery needs attention. Consider replacement or optimization.';
+                }
+                
+                // Chart data
+                this.metrics.trendData = this.entries.slice(-20).map(e => e.level);
+                this.metrics.trendLabels = this.entries.slice(-20).map((_, i) => `T-${20-i}`);
+            }
+            
+            generateRecommendations() {
+                const recommendations = [];
+                
+                if (this.metrics.healthScore < 85) {
+                    recommendations.push({
+                        icon: '⚡',
+                        title: 'Optimize Charging Habits',
+                        description: 'Try to keep your battery between 20-80% for optimal longevity.',
+                        priority: 'high'
+                    });
+                }
+                
+                if (this.metrics.cycleCount > 300) {
+                    recommendations.push({
+                        icon: '🔄',
+                        title: 'High Cycle Count',
+                        description: 'Your battery has experienced many cycles. Consider calibration.',
+                        priority: 'medium'
+                    });
+                }
+                
+                recommendations.push({
+                    icon: '🌡️',
+                    title: 'Temperature Management',
+                    description: 'Avoid extreme temperatures. Keep your Mac in 10-35°C environments.',
+                    priority: 'low'
+                });
+                
+                recommendations.push({
+                    icon: '🔌',
+                    title: 'Charging Best Practices',
+                    description: 'Use the MacBattery Monitor tool to automatically manage charge levels.',
+                    priority: 'medium'
+                });
+                
+                this.metrics.recommendations = recommendations;
+            }
+        }
+        
+        // UI Controller
+        let currentAnalysis = null;
+        let charts = {};
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('fileInput');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const demoBtn = document.getElementById('demoBtn');
+            const quickAnalyzeBtn = document.getElementById('quickAnalyzeBtn');
+            const newAnalysisBtn = document.getElementById('newAnalysisBtn');
+            
+            if (fileInput) fileInput.addEventListener('change', handleFileSelect);
+            if (analyzeBtn) analyzeBtn.addEventListener('click', analyzeData);
+            if (demoBtn) demoBtn.addEventListener('click', loadDemoData);
+            if (quickAnalyzeBtn) quickAnalyzeBtn.addEventListener('click', quickAnalyze);
+            if (newAnalysisBtn) newAnalysisBtn.addEventListener('click', resetDashboard);
+        });
+        
+        function copyCommand() {
+            const command = 'system_profiler SPPowerDataType | grep -A 10 "Health Information:"';
+            navigator.clipboard.writeText(command).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copié!';
+                button.classList.add('bg-green-500');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('bg-green-500');
+                }, 2000);
+            });
+        }
+        
+        function quickAnalyze() {
+            const input = document.getElementById('quickCheckInput').value.trim();
+            
+            if (!input) {
+                alert('Veuillez coller votre sortie de terminal d\'abord!');
+                return;
+            }
+            
+            // Parse the system_profiler output or just use demo data
+            currentAnalysis = input || 'Quick check data';
+            analyzeData();
+        }
+        
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentAnalysis = e.target.result;
+                    document.getElementById('fileName').textContent = file.name;
+                    document.getElementById('fileInfo').classList.remove('hidden');
+                    document.getElementById('analyzeBtn').classList.remove('hidden');
+                };
+                reader.readAsText(file);
+            }
+        }
+        
+        function loadDemoData() {
+            // Generate demo log data
+            let demoLog = 'MacBattery Monitor Log\n\n';
+            for (let i = 0; i < 50; i++) {
+                const level = 85 + Math.floor(Math.random() * 15);
+                demoLog += `[2025-01-${10+Math.floor(i/5)} 10:${i%60}:00] Current Battery: ${level}%, Status: ${Math.random() > 0.5 ? 'charging' : 'discharging'}\n`;
+            }
+            
+            currentAnalysis = demoLog;
+            document.getElementById('fileName').textContent = 'demo-data.log';
+            document.getElementById('fileInfo').classList.remove('hidden');
+            document.getElementById('analyzeBtn').classList.remove('hidden');
+        }
+        
+        function analyzeData() {
+            if (!currentAnalysis) return;
+            
+            // Show loading
+            document.getElementById('uploadSection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.remove('hidden');
+            
+            // Simulate processing time
+            setTimeout(() => {
+                const analyzer = new BatteryAnalyzer(currentAnalysis);
+                const metrics = analyzer.analyze();
+                
+                displayResults(metrics);
+                
+                document.getElementById('loadingSection').classList.add('hidden');
+                document.getElementById('dashboardSection').classList.remove('hidden');
+                
+                // Scroll to results
+                document.getElementById('dashboardSection').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+        
+        function displayResults(metrics) {
+            // Update metrics
+            document.getElementById('healthScore').textContent = metrics.healthScore + '%';
+            document.getElementById('healthGrade').textContent = metrics.grade;
+            document.getElementById('healthGrade').className = `text-2xl font-semibold mb-2 ${metrics.gradeColor}`;
+            document.getElementById('healthDescription').textContent = metrics.description;
+            
+            document.getElementById('currentCapacity').textContent = metrics.currentCapacity + '%';
+            document.getElementById('cycleCount').textContent = metrics.cycleCount;
+            document.getElementById('batteryAge').textContent = metrics.batteryAge;
+            document.getElementById('avgDischarge').textContent = metrics.avgDischarge;
+            document.getElementById('yourHealth').textContent = metrics.healthScore + '%';
+            
+            // Create health gauge chart
+            createHealthGauge(metrics.healthScore);
+            
+            // Create trend chart
+            createTrendChart(metrics.trendLabels, metrics.trendData);
+            
+            // Create status chart
+            createStatusChart();
+            
+            // Display recommendations
+            displayRecommendations(metrics.recommendations);
+        }
+        
+        function createHealthGauge(score) {
+            const ctx = document.getElementById('healthChart');
+            if (charts.health) charts.health.destroy();
+            
+            charts.health = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [score, 100 - score],
+                        backgroundColor: [
+                            score >= 90 ? '#10b981' : score >= 80 ? '#3b82f6' : score >= 70 ? '#f59e0b' : '#ef4444',
+                            'rgba(0, 0, 0, 0.1)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                }
+            });
+        }
+        
+        function createTrendChart(labels, data) {
+            const ctx = document.getElementById('trendChart');
+            if (charts.trend) charts.trend.destroy();
+            
+            charts.trend = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Battery Level',
+                        data: data,
+                        borderColor: '#0071e3',
+                        backgroundColor: 'rgba(0, 113, 227, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createStatusChart() {
+            const ctx = document.getElementById('statusChart');
+            if (charts.status) charts.status.destroy();
+            
+            charts.status = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Charging', 'Discharging', 'Full'],
+                    datasets: [{
+                        data: [45, 50, 5],
+                        backgroundColor: ['#10b981', '#ef4444', '#3b82f6']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('recommendations');
+            container.innerHTML = recommendations.map(rec => `
+                <div class="flex items-start p-4 bg-${rec.priority === 'high' ? 'red' : rec.priority === 'medium' ? 'yellow' : 'blue'}-50 rounded-xl">
+                    <div class="text-3xl mr-4">${rec.icon}</div>
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-apple-gray mb-1">${rec.title}</h4>
+                        <p class="text-apple-gray-medium text-sm">${rec.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function resetDashboard() {
+            document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('uploadSection').classList.remove('hidden');
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileInfo').classList.add('hidden');
+            document.getElementById('analyzeBtn').classList.add('hidden');
+            currentAnalysis = null;
+            
+            // Destroy charts
+            Object.values(charts).forEach(chart => chart.destroy());
+            charts = {};
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    
+</body>
+</html>
+
