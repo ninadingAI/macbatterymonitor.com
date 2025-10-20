@@ -455,9 +455,11 @@ chmod +x install.sh
                     </div>
                     <p class="text-apple-gray-medium mb-4">One-line install with curl:</p>
                     <div class="relative mb-6">
-                        <pre class="bg-apple-gray text-green-400 p-6 rounded-xl overflow-x-auto text-sm font-mono"><code>curl -fsSL https://ninadingAI.github.io/macbatterymonitor.com/battery-monitor-install.sh -o install.sh \
-&& chmod +x install.sh \
-&& ./install.sh</code></pre>
+                        <pre class="bg-apple-gray text-green-400 p-6 rounded-xl overflow-x-auto text-sm font-mono"><code># 方法1: 从GitHub Pages下载 (需要启用Pages)
+curl -fsSL https://ninadingAI.github.io/macbatterymonitor.com/battery-monitor-install.sh -o install.sh && chmod +x install.sh && ./install.sh
+
+# 方法2: 从GitHub Raw下载 (立即可用)
+curl -fsSL https://raw.githubusercontent.com/ninadingAI/macbatterymonitor.com/main/battery-monitor-install.sh -o install.sh && chmod +x install.sh && ./install.sh</code></pre>
                     </div>
                     <p class="text-apple-gray-medium mb-6">Or download the installer script directly:</p>
                     <a href="battery-monitor-install.sh" download class="inline-flex items-center px-6 py-3 bg-apple-blue text-white rounded-full hover:bg-apple-blue-dark transition">
@@ -466,6 +468,18 @@ chmod +x install.sh
                         </svg>
                         Download installer (install.sh)
                     </a>
+                    
+                    <!-- 使用说明 -->
+                    <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                        <h4 class="font-semibold text-blue-800 mb-2">📋 下载后如何使用：</h4>
+                        <ol class="text-sm text-blue-700 space-y-1">
+                            <li><strong>1.</strong> 打开终端 (Terminal)</li>
+                            <li><strong>2.</strong> 进入下载文件夹：<code class="bg-blue-100 px-1 rounded">cd ~/Downloads</code></li>
+                            <li><strong>3.</strong> 给脚本执行权限：<code class="bg-blue-100 px-1 rounded">chmod +x battery-monitor-install.sh</code></li>
+                            <li><strong>4.</strong> 运行安装：<code class="bg-blue-100 px-1 rounded">./battery-monitor-install.sh</code></li>
+                        </ol>
+                        <p class="text-xs text-blue-600 mt-2">💡 提示：安装过程中会要求输入密码来配置系统服务</p>
+                    </div>
                 </div>
             </div>
             
@@ -637,6 +651,105 @@ chmod +x install.sh
                             </div>
                             <a href="dashboard.html" class="text-apple-blue hover:text-apple-blue-dark transition">Open Full Dashboard →</a>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-apple-gray mb-4">How to Use</h2>
+                <p class="text-lg md:text-xl text-apple-gray-medium max-w-2xl mx-auto">
+                    Step-by-step guide to get your battery monitor running
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Method 1: One-line install -->
+                <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl mr-4">⚡</span>
+                        <h3 class="text-2xl font-semibold text-apple-gray">Quick Install (Recommended)</h3>
+                    </div>
+                    <p class="text-apple-gray-medium mb-4">Copy and paste this command in Terminal:</p>
+                    <div class="relative mb-6">
+                        <pre class="bg-apple-gray text-green-400 p-4 rounded-xl overflow-x-auto text-sm font-mono"><code>curl -fsSL https://raw.githubusercontent.com/ninadingAI/macbatterymonitor.com/main/battery-monitor-install.sh -o install.sh && chmod +x install.sh && ./install.sh</code></pre>
+                        <button onclick="copyToClipboard('curl -fsSL https://raw.githubusercontent.com/ninadingAI/macbatterymonitor.com/main/battery-monitor-install.sh -o install.sh && chmod +x install.sh && ./install.sh')" class="absolute top-2 right-2 px-3 py-1 bg-apple-blue text-white text-xs rounded hover:bg-apple-blue-dark transition">
+                            Copy
+                        </button>
+                    </div>
+                    <div class="space-y-2 text-sm text-apple-gray-medium">
+                        <p>✅ <strong>What it does:</strong></p>
+                        <ul class="ml-4 space-y-1">
+                            <li>• Downloads the installer script</li>
+                            <li>• Makes it executable</li>
+                            <li>• Runs the installation</li>
+                            <li>• Sets up automatic startup</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Method 2: Manual download -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl mr-4">📥</span>
+                        <h3 class="text-2xl font-semibold text-apple-gray">Manual Download</h3>
+                    </div>
+                    <p class="text-apple-gray-medium mb-4">If you prefer to download manually:</p>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-6 h-6 bg-apple-blue text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">1</span>
+                            <div>
+                                <p class="font-semibold">Download the script</p>
+                                <p class="text-apple-gray-medium">Click the download button above to get <code class="bg-gray-100 px-1 rounded">battery-monitor-install.sh</code></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-6 h-6 bg-apple-blue text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">2</span>
+                            <div>
+                                <p class="font-semibold">Open Terminal</p>
+                                <p class="text-apple-gray-medium">Press <code class="bg-gray-100 px-1 rounded">⌘ + Space</code>, type "Terminal", press Enter</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-6 h-6 bg-apple-blue text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">3</span>
+                            <div>
+                                <p class="font-semibold">Navigate to Downloads</p>
+                                <p class="text-apple-gray-medium">Type: <code class="bg-gray-100 px-1 rounded">cd ~/Downloads</code></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 w-6 h-6 bg-apple-blue text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">4</span>
+                            <div>
+                                <p class="font-semibold">Make executable & run</p>
+                                <p class="text-apple-gray-medium">Type: <code class="bg-gray-100 px-1 rounded">chmod +x battery-monitor-install.sh && ./battery-monitor-install.sh</code></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- After installation -->
+            <div class="mt-12 bg-gradient-to-r from-blue-50 to-green-50 rounded-3xl p-8">
+                <h3 class="text-2xl font-semibold text-apple-gray mb-4 text-center">🎉 After Installation</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">🔋</div>
+                        <h4 class="font-semibold text-apple-gray mb-2">Automatic Monitoring</h4>
+                        <p class="text-sm text-apple-gray-medium">The tool runs in the background and monitors your battery every 30 seconds</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">🔔</div>
+                        <h4 class="font-semibold text-apple-gray mb-2">Smart Notifications</h4>
+                        <p class="text-sm text-apple-gray-medium">Get native macOS notifications when battery needs attention</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">🚀</div>
+                        <h4 class="font-semibold text-apple-gray mb-2">Auto Startup</h4>
+                        <p class="text-sm text-apple-gray-medium">Starts automatically when you boot your Mac</p>
                     </div>
                 </div>
             </div>
@@ -1136,6 +1249,30 @@ echo "   最大休眠次数: ${max}次"
             setTimeout(() => {
                 successDiv.classList.add('hidden');
             }, 5000);
+        }
+        
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show success feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('bg-green-500');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('bg-green-500');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            });
         }
         
         // Copy install command with custom parameters
